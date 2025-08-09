@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import os
 
-def fetch_stock_data(symbol, period="5y", start_date=None, end_date=None):
+def fetch_stock_data(symbol, period="20y", start_date=None, end_date=None):
     try:
         ticker = yf.Ticker(symbol)
         
@@ -72,7 +72,7 @@ if stock_info:
     print("\nStock Information:")
     for key, value in stock_info.items():
         print(f"{key}: {value}")
-data = fetch_stock_data(symbol, period="5y")
+data = fetch_stock_data(symbol, period="20y")
 
 if data is not None:
     print(f"\nFetched {len(data)} days of data")
@@ -84,12 +84,12 @@ if data is not None:
     print("\nBasic Statistics:")
     print(data[['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']].describe())
     
-    save_to_parquet(f"data/{symbol}_5y.parquet", data)
+    save_to_parquet(f"data/{symbol}_20y.parquet", data)
 
 else:
     print("Failed to fetch data")
 
 
-apple_data=pd.read_parquet("data/AAPL_5y.parquet")
+apple_data=pd.read_parquet("data/AAPL_20y.parquet")
 print("\nData loaded from parquet:")
 print(apple_data.head())
